@@ -1,133 +1,328 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>경제 칼럼 리스트</title>
+<html><head>
+  <style>
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        font-size: 18px;
+        line-height: 1.75;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #222;
+        width:100%;
+      }
+      .content-wrap {
+        padding: 0 15px 15px 15px;
+      }
+      .tabwrap {
+        position: sticky; /* 또는 fixed */
+        top: 0;
+        z-index: 1000;
+        background-color: #f9f9f9;
+        padding: 15px 0 0 0;
+      }
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid #ccc;
+        flex-wrap: wrap;
+        background: #fff;
+      }
+
+      .tab {
+        padding: 14px 20px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-weight: bold;
+        color: #666;
+        font-size: 17px;
+      }
+
+      .tab.active {
+        color: blue;
+        border-bottom: 2px solid blue;
+      }
+
+      iframe{
+        border: none;
+        margin-top: 20px;
+        display: none;
+        width: 100%;
+        height: calc(100% - 140px) !important;
+      }
+
+      #originalReport {
+        border: none;
+        margin-top: 20px;
+        display: none;
+        padding: 0 15px 15px 15px;
+      }
+
+      .visible {
+        display: block !important;
+      }
+
+      .info {
+        font-size: 16px;
+        margin-top: 12px;
+        color: #444;
+      }
+
+      h2 {
+        font-size: 22px;
+        margin-top: 0;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          font-size: 19px;
+        }
+
+        .tab {
+          font-size: 18px;
+          padding: 12px 16px;
+        }
+
+        .info {
+          font-size: 17px;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+
+        p {
+          font-size: 17.5px;
+        }
+      }
+    </style> 
+  <link rel="stylesheet" href="/css/lssec.css?ver=1.0.2">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style data-emotion="css" data-s=""></style></head>
+ <body><div data-wxt-integrated=""><div id="__endic_crx__"><div class="css-1rld6j7"></div></div></div>
+  <div class="content-wrap"> 
+   <div data-wxt-integrated=""> 
+    <div id="__endic_crx__">
+     <div class="css-1rld6j7"></div>
+    </div> 
+   </div> 
+   <div class="tabwrap"> 
+    <div class="tabs"> 
+     <button class="tab active" onclick="changeTab('summary')"> 리포트 요약 </button> 
+     <button class="tab" onclick="changeTab('original')"> 리포트 원문 </button> 
+    </div> 
+   </div> 
+   <!-- iframe: 원문 --> 
+   <iframe id="reportIframe" src="https://mofit.fnguide.com/lssec/report/36_99999999999999?cn=ls&amp;en=12345082345614"></iframe> 
+   <!-- 직접 입력된 요약 --> 
+<div id="originalReport" class="visible"> 
   <style>
     body {
-      font-family: "Noto Sans KR", sans-serif;
-      padding: 40px 20px;
+      font-family: 'Helvetica', 'Arial', sans-serif;
       margin: 0;
-      background: #f9f9f9;
-    }
-    h1 {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 40px;
-      color: #222;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      line-height: 1.6;
+      width:100%;
     }
     .card {
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
+      background-color: white;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      max-width: 800px;
-      margin: 0 auto 30px auto;
-      flex-wrap: nowrap;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      padding: 1.2rem;
     }
-    .card-text {
-      flex: 1;
-      min-width: 0;
-    }
-    .card-text small {
-      color: #888;
-      font-size: 13px;
-      display: block;
-      margin-bottom: 5px;
-    }
-    .card-text h2 {
-      font-size: 18px;
-      margin: 0 0 10px;
+    .card h2 {
+      font-size: 1.2rem;
       color: #1a1a1a;
+      margin-top: 0;
     }
-    .card-text p {
-      color: #555;
-      font-size: 14px;
-      line-height: 1.5;
+    .highlight {
+      background-color: #f0f8ff;
+      padding: 0.5rem;
+      border-left: 4px solid #007acc;
+      margin: 1rem 0;
     }
-    .card img {
-      width: 100px;
-      height: auto;
-      margin-left: 20px;
-      border-radius: 8px;
-      object-fit: contain;
-      flex-shrink: 0;
+    ul {
+      padding-left: 1.2rem;
     }
-
-    @media (max-width: 600px) {
-      .card-text p {
-        font-size: 13.5px;
-      }
-
-      .card img {
-        width: 70px;
-        margin-left: 12px;
-      }
+    li {
+      margin-bottom: 0.5rem;
     }
-  </style>
-</head>
-<body>
-
-  <h1># 대신증권</h1>
-
-  <div class="card">
-    <div class="card-text">
-      <small>리포트</small>
-      <h2> <a href="https://aj-114.github.io/daishin/bullet1_1.html" style="text-decoration: none; color: inherit;">조선의 부활? HD현대미포가 다시 뜨는 이유!</a> </h2>
-      <p>
-        고수익 선박 비중 확대와 반복 생산 전략으로 수익성 개선 중. 2025년부터 본격 성장 예고, 지금이 기회일지도?
-      </p>
+  </style> 
+  <div class="card"> 
+    <h2>HMM 2025년, 적자 속에서도 희망의 항로를 찾는 해운전문가의 분석</h2> 
+    <p style="color: gray; margin-top: -0.5rem; margin-bottom: 2rem;"> 이것부터 알고 가기 </p> 
+    <p>HMM은 글로벌 해운 시장의 변화와 실적 부진 속에서도 내년 전망을 분석하는 중요한 데이터를 제공하고 있어요. 2분기 실적 쇼크와 비용 증가, 그리고 하반기 시장 예상이 핵심 포인트입니다.</p> 
+  </div> 
+  <div class="card"> 
+    <h2>중요한 부분</h2> 
+    <ul style="list-style-type: none;"> 
+      <li><strong>① 2분기 실적 쇼크와 그 이유</strong><br>HMM은 2분기 당기순이익이 크게 하락했고, 비용과 운임 하락이 주요 원인입니다. 컨테이너 운임이 큰 폭으로 떨어졌으며, 비용이 예상보다 늘어난 것에 영향을 받았어요.</li>
+      <li><strong>② 하반기 전망과 의의</strong><br>향후 운임이 약보합 전망이지만, 업황 부진에도 연내 자사주 매입 계획으로 주가 하락폭 제한이 예상돼요. 앞으로 시장 변동성과 실적 전망을 함께 고려해야 합니다.</li>
+      <li><strong>③ 기업의 전략과 시장 상황</strong><br>HMM은 2030년까지 선복(선박 수) 확대와 유연한 전략 운용을 계획하고 있으며, 선박 규제와 시장 변동에 적응하기 위한 다양한 방안을 검토 중입니다.</li> 
+    </ul> 
+  </div> 
+  <div class="card"> 
+    <h2>쉽게 말해서</h2> 
+    <div class="highlight">
+      <strong>① 이 리포트가 말하려고 하는 건</strong>
+      <br>HMM은 최근 실적이 부진했지만, 앞으로 시장에서 회복할 가능성도 검토하며, 주가 하락폭은 제한적일 것이라는 분석을 전합니다.
     </div>
-    <img src="https://images.unsplash.com/photo-1612428978467-80244027cc2b?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="라면 이미지">
-  </div>
+    <div class="highlight">
+      <strong>② 배울 수 있는 것은</strong>
+      <br>시장 변동성과 비용 증가가 실적에 어떻게 영향을 주는지 이해할 수 있으며, 기업이 대처하는 전략이 시장 환경에 어떻게 연결되는지 알 수 있어요.
+    </div> 
+  </div> 
+  <div class="card"> 
+    <h2>그럼 무엇을 해야 할까</h2> 
+    <ul style="list-style-type: none;"> 
+      <li><strong>① 이 내용을 더 심도 있게 알고 싶다면</strong><br>해운업의 비용 구조, 운임 지수 및 글로벌 시장 변화와 관련된 책이나 자료를 찾아보고, 해운업 전략과 시장 전망을 공부하세요.</li>
+      <li><strong>② 이 내용을 바탕으로 이익을 얻으려면</strong><br>HMM의 미래 전략과 시장 분석에 주목하고, 실적 변동성에 대비하여 분산투자와 시장 타이밍을 고려하는 것이 좋습니다.</li> 
+    </ul> 
+  </div> 
+</div>
 
-  <div class="card">
-    <div class="card-text">
-      <small>리포트</small>
-      <h2> <a href="https://aj-114.github.io/daishin/bullet2_1.html" style="text-decoration: none; color: inherit;">LG전자의 저평가와 변동성 구간, 지금이 딱 기회일까?</a> </h2>
-      <p>
-        10년 만의 낮은 P/E 비율과 안정적 실적. 관세 불확실성은 있지만, 가전·전장·데이터센터로 성장 동력 확보 중..
-      </p>
-    </div>
-    <img src="https://images.unsplash.com/photo-1510872893374-80379d91fc92?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="에너지 아이콘">
-  </div>
+   <!-- 정보 출력 --> 
+   <div class="info" id="urlInfo"></div> 
+  </div> 
+<script>
+  // 탭 전환
+  function changeTab(tab) {
+    document
+      .querySelectorAll(".tab")
+      .forEach((btn) => btn.classList.remove("active"));
+    document
+      .querySelectorAll("iframe, #originalReport")
+      .forEach((el) => el.classList.remove("visible"));
 
-  <div class="card">
-    <div class="card-text">
-      <small>리포트</small>
-      <h2> <a href="https://aj-114.github.io/daishin/bullet3_1.html" style="text-decoration: none; color: inherit;">높은 곳을 향한 비행, 삼성바이오로직스의 미래를 잡아라!</a> </h2>
-      <p>
-        공장 가동과 수주 증가로 실적이 크게 늘고 있어요. 지금은 기대감이 커지며 기업가치가 재평가될 수 있는 시점이에요.
-      </p>
-    </div>
-    <img src="https://images.unsplash.com/photo-1579781354171-45f67f0d8f18?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="편의점 이미지">
-  </div>
+    if (tab === "summary") {
+      document.querySelector(".tab:nth-child(1)").classList.add("active");
+      document.getElementById("originalReport").classList.add("visible");
+    } else {
+      document.querySelector(".tab:nth-child(2)").classList.add("active");
+      document.getElementById("reportIframe").classList.add("visible");
+    }
+  }
 
-  <div class="card">
-    <div class="card-text">
-      <small>리포트</small>
-      <h2> <a href="https://aj-114.github.io/daishin/bullet4_1.html" style="text-decoration: none; color: inherit;">셀트리온, 견고한 성장세 불구 미국과 유럽 변수에 흔들릴까?</a> </h2>
-      <p>
-        바이오시밀러 수출로 실적은 견고하지만, 미국·유럽의 정책 변화가 중요한 변수예요. 글로벌 흐름에 따라 주가가 바뀔 수 있어요.
-      </p>
-    </div>
-    <img src="https://images.unsplash.com/photo-1555633514-abcee6ab92e1?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="화장품 아이콘">
-  </div>
+  // 현재 주소에서 en 값과 파일명 추출
+  const urlParams = new URLSearchParams(window.location.search);
+  const en = urlParams.get("en") || "";
 
-  <div class="card">
-    <div class="card-text">
-      <small>리포트</small>
-      <h2> <a href="https://aj-114.github.io/daishin/bullet5_1.html" style="text-decoration: none; color: inherit;">삼양식품, 밀양2공장 증설로 글로벌 시장에서 새 판을 짜다!</a> </h2>
-      <p>
-        새 공장 가동으로 수출 확대와 매출 성장이 기대돼요. 브랜드력과 안정적 수요까지 갖춘 지금이 주목할 타이밍이에요.
-      </p>
-    </div>
-    <img src="https://images.unsplash.com/photo-1444459094717-a39f1e3e0903?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="건설 아이콘">
-  </div>
+  const path = window.location.pathname.split("/").pop(); // 예: 253_12459975_v.html
+  const filenameWithV = path.replace(".html", "");
+  const filename = filenameWithV.replace("_v", "");
 
-</body>
-</html>
+  // ▼▼ 오늘 날짜를 en 템플릿에 반영하는 함수 ▼▼
+  function buildEnFromTemplate(templateEn) {
+    // 오늘 날짜 (월/일 2자리)
+    const today = new Date();
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); // 01~12
+    const dd = String(today.getDate()).padStart(2, "0");      // 01~31
+
+    // 템플릿 규칙:
+    // 예시 "12345082345614" → 5자리 고정 + [월 2] + 5자리 고정 + [일 2] = 총 14자리
+    // 자리수가 14가 아닐 경우엔 마지막 2자리를 일자로, 6~7자리를 월로 교체 시도
+    const t = (templateEn || "").trim();
+
+    if (/^\d{14}$/.test(t)) {
+      // 0..4(5자리 고정) + 5..6(월) + 7..11(5자리 고정) + 12..13(일)
+      return t.slice(0, 5) + mm + t.slice(7, 12) + dd;
+    } else if (t.length >= 9) {
+      // 안전장치: 자릿수 달라도 6~7번째(인덱스 5,6)에 월, 마지막 두 자리에 일 반영 시도
+      const head = t.slice(0, 5);
+      const middle = t.slice(7, -2);
+      return head + mm + middle + dd;
+    } else {
+      // 템플릿이 신뢰 불가하면 "12345 + MM + 23456 + DD" 형태로 생성
+      return "12345" + mm + "23456" + dd;
+    }
+  }
+
+  // en 템플릿 우선순위: URL의 en 파라미터 > 기본 예시 템플릿
+  const templateEn = en || "12345082345614";
+  const finalEn = buildEnFromTemplate(templateEn);
+
+  // iframe URL 구성 및 적용
+  const baseIframeURL = "https://mofit.fnguide.com/lssec/report/253_12840095?cn=ls&en=";
+  const iframeURL = `${baseIframeURL}${finalEn}`;
+  document.getElementById("reportIframe").src = iframeURL;
+
+  //const tabs = document.querySelector('.tabs');
+  //const tabsOffset = tabs.offsetTop;
+  //const tabsWidth = tabs.offsetWidth; // 현재 탭의 너비 저장
+  //
+  // window.addEventListener('scroll', () => {
+  //  if (window.scrollY > tabsOffset) {
+  //      tabs.style.position = 'fixed';
+  //      tabs.style.top = '0';
+  //      tabs.style.left = `${tabs.getBoundingClientRect().left}px`; // 현재 위치 유지
+  //      tabs.style.width = `${tabsWidth}px`; // 원래 너비로 고정
+  //  } else {
+  //      tabs.style.position = 'sticky';
+  //      tabs.style.top = '0';
+  //      tabs.style.width = ''; // 원래 CSS 값으로 복구
+  //  }
+  //});
+</script>
+
+  <div class="glasp-extension-toaster" style="
+        display: block;
+        width: 320px;
+        margin: unset;
+        padding: unset;
+        border: unset;
+        border-radius: unset;
+        outline: unset;
+        background-color: unset;
+        box-shadow: unset;
+        position: fixed;
+        top: 40px;
+        right: 24px;
+        z-index: 9999;
+      "></div> 
+  <div class="glasp-extension" style="
+        display: block;
+        width: unset;
+        margin: unset;
+        padding: unset;
+        border: unset;
+        border-radius: unset;
+        outline: unset;
+        background-color: unset;
+        box-shadow: unset;
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        z-index: 9999;
+      "></div> 
+   
+   
+  <div id="glasp-extension-toast-container" style="
+        position: fixed;
+        top: 32px;
+        right: 16px;
+        z-index: 2147483647;
+        display: none;
+        flex-direction: column;
+        align-items: flex-end;
+        height: 0px;
+        width: auto;
+        margin: 0px;
+        padding: 0px;
+      "></div>
+ 
+<div class="glasp-extension-toaster" style="display: block; width: 320px; margin: unset; padding: unset; border: unset; border-radius: unset; outline: unset; background-color: unset; box-shadow: unset; position: fixed; top: 40px; right: 24px; z-index: 9999;"></div><div class="glasp-extension" style="display: block; width: unset; margin: unset; padding: unset; border: unset; border-radius: unset; outline: unset; background-color: unset; box-shadow: unset; position: fixed; bottom: 16px; right: 16px; z-index: 9999;"></div><div class="glasp-ui-wrapper" id="glasp-ui-wrapper" style="height: 0px; width: 0px; padding: 0px;"><iframe name="glasp-tooltip-iframe" id="glasp-tooltip-iframe" style="display: none;"></iframe><iframe name="glasp-sidebar-iframe" id="glasp-sidebar-iframe" style="display: none !important;width: 0px !important; min-width: 0px !important; max-width: 320px; height: 100%; background: transparent; margin: auto; position: fixed; top: 0px; right: 0px; left: auto; z-index: 9000000000000000000;border: none !important;"></iframe></div><div id="yt_article_summary_widget_wrapper" class="yt_article_summary_widget_wrapper" style="display: none; margin: auto; width: fit-content; padding: 0px; border-radius: 100%;">
+        <div id="yt_article_summary_widget" class="yt_article_summary_widget"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask x="1" y="1" width="24" height="24" fill="#4a5565">
+                <rect fill="white" x="1" y="1" width="24" height="24"></rect>
+                <path d="M20.6816 10.1843C20.9588 9.34066 21.0063 8.4399 20.8192 7.57245C20.6321 6.70499 20.217 5.90134 19.6157 5.24216C19.0143 4.58298 18.2478 4.09146 17.393 3.81692C16.5382 3.54238 15.6253 3.49449 14.7459 3.67805C14.1453 3.01747 13.379 2.52468 12.524 2.24931C11.669 1.97394 10.7555 1.92571 9.87559 2.10947C8.99568 2.29324 8.18039 2.70252 7.51181 3.29608C6.84323 3.88965 6.34499 4.64654 6.06725 5.49055C5.18642 5.67292 4.3699 6.08122 3.70003 6.67426C3.03017 7.26731 2.53064 8.02413 2.25182 8.86842C1.97299 9.71271 1.92474 10.6146 2.11192 11.4832C2.2991 12.3517 2.71509 13.1562 3.31795 13.8155C3.09309 14.4899 3.01633 15.2037 3.09278 15.9095C3.16924 16.6154 3.39716 17.2971 3.76139 17.9093C4.30169 18.8351 5.12567 19.568 6.11483 20.0027C7.104 20.4373 8.20738 20.5512 9.26631 20.328C9.74353 20.8568 10.3291 21.2796 10.9844 21.5684C11.6396 21.8571 12.3495 22.0053 13.0672 22.003C14.1516 22.003 15.2081 21.6635 16.0847 21.0334C16.9612 20.4034 17.6125 19.5152 17.9449 18.4968C18.649 18.3539 19.3141 18.0649 19.8962 17.6489C20.4784 17.233 20.9642 16.6997 21.3214 16.0843C21.8585 15.1598 22.0858 14.0915 21.9709 13.032C21.856 11.9724 21.4048 10.9758 20.6816 10.1843ZM13.0798 20.6968C12.191 20.6968 11.3302 20.3894 10.6473 19.828L10.7677 19.7593L14.8029 17.4593C14.9069 17.4047 14.9935 17.3225 15.0528 17.2221C15.1121 17.1216 15.1418 17.0068 15.1386 16.8905V11.2655L16.8427 12.2405C16.8517 12.2441 16.8594 12.2501 16.865 12.2579C16.8706 12.2656 16.8739 12.2748 16.8744 12.2843V16.9343C16.876 17.4289 16.7785 17.9189 16.5875 18.3761C16.3964 18.8333 16.1156 19.2488 15.7611 19.5985C15.4067 19.9482 14.9856 20.2253 14.5222 20.4138C14.0588 20.6023 13.5621 20.6984 13.0608 20.6968H13.0798ZM4.90165 17.2593C4.46164 16.5029 4.3026 15.6189 4.45188 14.7593L4.57224 14.828L8.60749 17.128C8.70379 17.1829 8.81303 17.2118 8.92423 17.2118C9.03543 17.2118 9.14467 17.1829 9.24097 17.128L14.1758 14.3218V16.253C14.1797 16.2608 14.1817 16.2694 14.1817 16.278C14.1817 16.2867 14.1797 16.2953 14.1758 16.303L10.0962 18.628C9.66403 18.8748 9.18685 19.0352 8.69188 19.0999C8.19692 19.1647 7.69387 19.1326 7.21148 19.0055C6.72909 18.8784 6.27681 18.6587 5.88048 18.3591C5.48415 18.0595 5.15154 17.6858 4.90165 17.2593ZM3.83741 8.5843C4.28764 7.82089 4.99655 7.23878 5.83919 6.94055V11.6718C5.83595 11.7857 5.86434 11.8983 5.92128 11.9975C5.97823 12.0966 6.06156 12.1785 6.16227 12.2343L11.0717 15.028L9.36766 16.003C9.34918 16.0092 9.32914 16.0092 9.31065 16.003L5.23106 13.678C4.36041 13.1812 3.72487 12.3642 3.46364 11.4059C3.20242 10.4476 3.33682 9.42624 3.83741 8.56555V8.5843ZM17.8563 11.7968L12.9278 8.9718L14.6319 8.00305C14.6403 7.99741 14.6502 7.99439 14.6604 7.99439C14.6705 7.99439 14.6805 7.99741 14.6889 8.00305L18.7685 10.328C19.3915 10.684 19.8992 11.2072 20.2325 11.8368C20.5659 12.4664 20.7111 13.1764 20.6514 13.8843C20.5916 14.5921 20.3294 15.2687 19.8951 15.8352C19.4608 16.4017 18.8724 16.8349 18.1983 17.0843V12.353C18.1946 12.2391 18.1612 12.1281 18.1013 12.0306C18.0414 11.9332 17.957 11.8527 17.8563 11.7968ZM19.554 9.2968L19.4336 9.2218L15.4047 6.9093C15.3047 6.84846 15.1896 6.81624 15.0721 6.81624C14.9547 6.81624 14.8395 6.84846 14.7396 6.9093L9.8111 9.71555V7.75305C9.8061 7.7445 9.80346 7.7348 9.80346 7.72492C9.80346 7.71505 9.8061 7.70535 9.8111 7.6968L13.897 5.37805C14.5222 5.02257 15.2371 4.85003 15.958 4.88059C16.6789 4.91115 17.3762 5.14356 17.9682 5.55064C18.5601 5.95772 19.0225 6.52265 19.301 7.17939C19.5796 7.83614 19.663 8.55755 19.5413 9.2593L19.554 9.2968ZM8.87989 12.7218L7.1695 11.753C7.15339 11.7405 7.1422 11.7228 7.13782 11.703V7.06555C7.13785 6.35289 7.34371 5.65499 7.73128 5.0536C8.11885 4.45222 8.67209 3.97224 9.32619 3.6699C9.98029 3.36756 10.7082 3.25537 11.4246 3.34647C12.141 3.43757 12.8162 3.7282 13.3712 4.1843L13.2636 4.25305L9.21563 6.55305C9.11158 6.60765 9.02504 6.68981 8.96573 6.79029C8.90642 6.89076 8.87669 7.00557 8.87989 7.1218V12.7218ZM9.80476 10.753L11.9966 9.50305L14.1948 10.753V13.253L11.9966 14.503L9.79843 13.253L9.80476 10.753Z"></path>
+            </mask>
+            <path d="M20.6816 10.1843C20.9588 9.34066 21.0063 8.4399 20.8192 7.57245C20.6321 6.70499 20.217 5.90134 19.6157 5.24216C19.0143 4.58298 18.2478 4.09146 17.393 3.81692C16.5382 3.54238 15.6253 3.49449 14.7459 3.67805C14.1453 3.01747 13.379 2.52468 12.524 2.24931C11.669 1.97394 10.7555 1.92571 9.87559 2.10947C8.99568 2.29324 8.18039 2.70252 7.51181 3.29608C6.84323 3.88965 6.34499 4.64654 6.06725 5.49055C5.18642 5.67292 4.3699 6.08122 3.70003 6.67426C3.03017 7.26731 2.53064 8.02413 2.25182 8.86842C1.97299 9.71271 1.92474 10.6146 2.11192 11.4832C2.2991 12.3517 2.71509 13.1562 3.31795 13.8155C3.09309 14.4899 3.01633 15.2037 3.09278 15.9095C3.16924 16.6154 3.39716 17.2971 3.76139 17.9093C4.30169 18.8351 5.12567 19.568 6.11483 20.0027C7.104 20.4373 8.20738 20.5512 9.26631 20.328C9.74353 20.8568 10.3291 21.2796 10.9844 21.5684C11.6396 21.8571 12.3495 22.0053 13.0672 22.003C14.1516 22.003 15.2081 21.6635 16.0847 21.0334C16.9612 20.4034 17.6125 19.5152 17.9449 18.4968C18.649 18.3539 19.3141 18.0649 19.8962 17.6489C20.4784 17.233 20.9642 16.6997 21.3214 16.0843C21.8585 15.1598 22.0858 14.0915 21.9709 13.032C21.856 11.9724 21.4048 10.9758 20.6816 10.1843ZM13.0798 20.6968C12.191 20.6968 11.3302 20.3894 10.6473 19.828L10.7677 19.7593L14.8029 17.4593C14.9069 17.4047 14.9935 17.3225 15.0528 17.2221C15.1121 17.1216 15.1418 17.0068 15.1386 16.8905V11.2655L16.8427 12.2405C16.8517 12.2441 16.8594 12.2501 16.865 12.2579C16.8706 12.2656 16.8739 12.2748 16.8744 12.2843V16.9343C16.876 17.4289 16.7785 17.9189 16.5875 18.3761C16.3964 18.8333 16.1156 19.2488 15.7611 19.5985C15.4067 19.9482 14.9856 20.2253 14.5222 20.4138C14.0588 20.6023 13.5621 20.6984 13.0608 20.6968H13.0798ZM4.90165 17.2593C4.46164 16.5029 4.3026 15.6189 4.45188 14.7593L4.57224 14.828L8.60749 17.128C8.70379 17.1829 8.81303 17.2118 8.92423 17.2118C9.03543 17.2118 9.14467 17.1829 9.24097 17.128L14.1758 14.3218V16.253C14.1797 16.2608 14.1817 16.2694 14.1817 16.278C14.1817 16.2867 14.1797 16.2953 14.1758 16.303L10.0962 18.628C9.66403 18.8748 9.18685 19.0352 8.69188 19.0999C8.19692 19.1647 7.69387 19.1326 7.21148 19.0055C6.72909 18.8784 6.27681 18.6587 5.88048 18.3591C5.48415 18.0595 5.15154 17.6858 4.90165 17.2593ZM3.83741 8.5843C4.28764 7.82089 4.99655 7.23878 5.83919 6.94055V11.6718C5.83595 11.7857 5.86434 11.8983 5.92128 11.9975C5.97823 12.0966 6.06156 12.1785 6.16227 12.2343L11.0717 15.028L9.36766 16.003C9.34918 16.0092 9.32914 16.0092 9.31065 16.003L5.23106 13.678C4.36041 13.1812 3.72487 12.3642 3.46364 11.4059C3.20242 10.4476 3.33682 9.42624 3.83741 8.56555V8.5843ZM17.8563 11.7968L12.9278 8.9718L14.6319 8.00305C14.6403 7.99741 14.6502 7.99439 14.6604 7.99439C14.6705 7.99439 14.6805 7.99741 14.6889 8.00305L18.7685 10.328C19.3915 10.684 19.8992 11.2072 20.2325 11.8368C20.5659 12.4664 20.7111 13.1764 20.6514 13.8843C20.5916 14.5921 20.3294 15.2687 19.8951 15.8352C19.4608 16.4017 18.8724 16.8349 18.1983 17.0843V12.353C18.1946 12.2391 18.1612 12.1281 18.1013 12.0306C18.0414 11.9332 17.957 11.8527 17.8563 11.7968ZM19.554 9.2968L19.4336 9.2218L15.4047 6.9093C15.3047 6.84846 15.1896 6.81624 15.0721 6.81624C14.9547 6.81624 14.8395 6.84846 14.7396 6.9093L9.8111 9.71555V7.75305C9.8061 7.7445 9.80346 7.7348 9.80346 7.72492C9.80346 7.71505 9.8061 7.70535 9.8111 7.6968L13.897 5.37805C14.5222 5.02257 15.2371 4.85003 15.958 4.88059C16.6789 4.91115 17.3762 5.14356 17.9682 5.55064C18.5601 5.95772 19.0225 6.52265 19.301 7.17939C19.5796 7.83614 19.663 8.55755 19.5413 9.2593L19.554 9.2968ZM8.87989 12.7218L7.1695 11.753C7.15339 11.7405 7.1422 11.7228 7.13782 11.703V7.06555C7.13785 6.35289 7.34371 5.65499 7.73128 5.0536C8.11885 4.45222 8.67209 3.97224 9.32619 3.6699C9.98029 3.36756 10.7082 3.25537 11.4246 3.34647C12.141 3.43757 12.8162 3.7282 13.3712 4.1843L13.2636 4.25305L9.21563 6.55305C9.11158 6.60765 9.02504 6.68981 8.96573 6.79029C8.90642 6.89076 8.87669 7.00557 8.87989 7.1218V12.7218ZM9.80476 10.753L11.9966 9.50305L14.1948 10.753V13.253L11.9966 14.503L9.79843 13.253L9.80476 10.753Z" fill="#4a5565"></path>
+            <path d="M20.6816 10.1843C20.9588 9.34066 21.0063 8.4399 20.8192 7.57245C20.6321 6.70499 20.217 5.90134 19.6157 5.24216C19.0143 4.58298 18.2478 4.09146 17.393 3.81692C16.5382 3.54238 15.6253 3.49449 14.7459 3.67805C14.1453 3.01747 13.379 2.52468 12.524 2.24931C11.669 1.97394 10.7555 1.92571 9.87559 2.10947C8.99568 2.29324 8.18039 2.70252 7.51181 3.29608C6.84323 3.88965 6.34499 4.64654 6.06725 5.49055C5.18642 5.67292 4.3699 6.08122 3.70003 6.67426C3.03017 7.26731 2.53064 8.02413 2.25182 8.86842C1.97299 9.71271 1.92474 10.6146 2.11192 11.4832C2.2991 12.3517 2.71509 13.1562 3.31795 13.8155C3.09309 14.4899 3.01633 15.2037 3.09278 15.9095C3.16924 16.6154 3.39716 17.2971 3.76139 17.9093C4.30169 18.8351 5.12567 19.568 6.11483 20.0027C7.104 20.4373 8.20738 20.5512 9.26631 20.328C9.74353 20.8568 10.3291 21.2796 10.9844 21.5684C11.6396 21.8571 12.3495 22.0053 13.0672 22.003C14.1516 22.003 15.2081 21.6635 16.0847 21.0334C16.9612 20.4034 17.6125 19.5152 17.9449 18.4968C18.649 18.3539 19.3141 18.0649 19.8962 17.6489C20.4784 17.233 20.9642 16.6997 21.3214 16.0843C21.8585 15.1598 22.0858 14.0915 21.9709 13.032C21.856 11.9724 21.4048 10.9758 20.6816 10.1843ZM13.0798 20.6968C12.191 20.6968 11.3302 20.3894 10.6473 19.828L10.7677 19.7593L14.8029 17.4593C14.9069 17.4047 14.9935 17.3225 15.0528 17.2221C15.1121 17.1216 15.1418 17.0068 15.1386 16.8905V11.2655L16.8427 12.2405C16.8517 12.2441 16.8594 12.2501 16.865 12.2579C16.8706 12.2656 16.8739 12.2748 16.8744 12.2843V16.9343C16.876 17.4289 16.7785 17.9189 16.5875 18.3761C16.3964 18.8333 16.1156 19.2488 15.7611 19.5985C15.4067 19.9482 14.9856 20.2253 14.5222 20.4138C14.0588 20.6023 13.5621 20.6984 13.0608 20.6968H13.0798ZM4.90165 17.2593C4.46164 16.5029 4.3026 15.6189 4.45188 14.7593L4.57224 14.828L8.60749 17.128C8.70379 17.1829 8.81303 17.2118 8.92423 17.2118C9.03543 17.2118 9.14467 17.1829 9.24097 17.128L14.1758 14.3218V16.253C14.1797 16.2608 14.1817 16.2694 14.1817 16.278C14.1817 16.2867 14.1797 16.2953 14.1758 16.303L10.0962 18.628C9.66403 18.8748 9.18685 19.0352 8.69188 19.0999C8.19692 19.1647 7.69387 19.1326 7.21148 19.0055C6.72909 18.8784 6.27681 18.6587 5.88048 18.3591C5.48415 18.0595 5.15154 17.6858 4.90165 17.2593ZM3.83741 8.5843C4.28764 7.82089 4.99655 7.23878 5.83919 6.94055V11.6718C5.83595 11.7857 5.86434 11.8983 5.92128 11.9975C5.97823 12.0966 6.06156 12.1785 6.16227 12.2343L11.0717 15.028L9.36766 16.003C9.34918 16.0092 9.32914 16.0092 9.31065 16.003L5.23106 13.678C4.36041 13.1812 3.72487 12.3642 3.46364 11.4059C3.20242 10.4476 3.33682 9.42624 3.83741 8.56555V8.5843ZM17.8563 11.7968L12.9278 8.9718L14.6319 8.00305C14.6403 7.99741 14.6502 7.99439 14.6604 7.99439C14.6705 7.99439 14.6805 7.99741 14.6889 8.00305L18.7685 10.328C19.3915 10.684 19.8992 11.2072 20.2325 11.8368C20.5659 12.4664 20.7111 13.1764 20.6514 13.8843C20.5916 14.5921 20.3294 15.2687 19.8951 15.8352C19.4608 16.4017 18.8724 16.8349 18.1983 17.0843V12.353C18.1946 12.2391 18.1612 12.1281 18.1013 12.0306C18.0414 11.9332 17.957 11.8527 17.8563 11.7968ZM19.554 9.2968L19.4336 9.2218L15.4047 6.9093C15.3047 6.84846 15.1896 6.81624 15.0721 6.81624C14.9547 6.81624 14.8395 6.84846 14.7396 6.9093L9.8111 9.71555V7.75305C9.8061 7.7445 9.80346 7.7348 9.80346 7.72492C9.80346 7.71505 9.8061 7.70535 9.8111 7.6968L13.897 5.37805C14.5222 5.02257 15.2371 4.85003 15.958 4.88059C16.6789 4.91115 17.3762 5.14356 17.9682 5.55064C18.5601 5.95772 19.0225 6.52265 19.301 7.17939C19.5796 7.83614 19.663 8.55755 19.5413 9.2593L19.554 9.2968ZM8.87989 12.7218L7.1695 11.753C7.15339 11.7405 7.1422 11.7228 7.13782 11.703V7.06555C7.13785 6.35289 7.34371 5.65499 7.73128 5.0536C8.11885 4.45222 8.67209 3.97224 9.32619 3.6699C9.98029 3.36756 10.7082 3.25537 11.4246 3.34647C12.141 3.43757 12.8162 3.7282 13.3712 4.1843L13.2636 4.25305L9.21563 6.55305C9.11158 6.60765 9.02504 6.68981 8.96573 6.79029C8.90642 6.89076 8.87669 7.00557 8.87989 7.1218V12.7218ZM9.80476 10.753L11.9966 9.50305L14.1948 10.753V13.253L11.9966 14.503L9.79843 13.253L9.80476 10.753Z" stroke="#4a5565" stroke-width="0.3"></path>
+        </svg></div>
+        <div id="yt_article_summary_close_button" class="yt_article_summary_close_button">×</div>
+    </div><div id="glasp-extension-toast-container" style="position: fixed; top: 32px; right: 16px; z-index: 2147483647; display: none; flex-direction: column; align-items: flex-end; height: 0px; width: auto; margin: 0px; padding: 0px;"></div></body></html>
