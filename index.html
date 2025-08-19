@@ -1,372 +1,137 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <title>리포트 요약 + 원문</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- 기존 요약 레이아웃 스타일 -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>경제 칼럼 리스트</title>
   <style>
     body {
       font-family: "Noto Sans KR", sans-serif;
-      font-size: 18px;
-      line-height: 1.75;
-      margin: 0 !important;
-      padding: 0 !important;
-      background-color: #f9f9f9;
+      padding: 40px 20px;
+      margin: 0;
+      background: #f9f9f9;
+    }
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 40px;
       color: #222;
-      width:100%;
     }
-    .content-wrap {
-      padding: 0 15px 15px 15px;
-    }
-    .tabwrap {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background-color: #f9f9f9;
-      padding: 15px 0 0 0;
-    }
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid #ccc;
-      flex-wrap: wrap;
-      background: #fff;
-    }
-    .tab {
-      padding: 14px 20px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-weight: bold;
-      color: #666;
-      font-size: 17px;
-    }
-    .tab.active {
-      color: blue;
-      border-bottom: 2px solid blue;
-    }
-    /* 두 섹션 공통 토글 */
-    #originalReport, #fullReport {
-      border: none;
-      margin-top: 20px;
-      display: none;
-      padding: 0 15px 15px 15px;
-    }
-    .visible {
-      display: block !important;
-    }
-    .info {
-      font-size: 16px;
-      margin-top: 12px;
-      color: #444;
-    }
-    h2 { font-size: 22px; margin-top: 0; }
-    p  { font-size: 18px; line-height: 1.7; }
-
-    /* 요약 카드 스타일 */
     .card {
-      background-color: white;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin-bottom: 1.5rem;
-      padding: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      flex-wrap: nowrap;
     }
-    .card h2 {
-      font-size: 1.2rem;
+    .card-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .card-text small {
+      color: #888;
+      font-size: 13px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .card-text h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
       color: #1a1a1a;
-      margin-top: 0;
     }
-    .highlight {
-      background-color: #f0f8ff;
-      padding: 0.5rem;
-      border-left: 4px solid #007acc;
-      margin: 1rem 0;
+    .card-text p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.5;
     }
-    ul { padding-left: 1.2rem; }
-    li { margin-bottom: 0.5rem; }
+    .card img {
+      width: 100px;
+      height: 100px;
+      margin-left: 20px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
 
     @media (max-width: 600px) {
-      body { font-size: 19px; }
-      .tab { font-size: 18px; padding: 12px 16px; }
-      .info { font-size: 17px; }
-      h2 { font-size: 20px; }
-      p  { font-size: 17.5px; }
-    }
-  </style>
+      .card-text p {
+        font-size: 13.5px;
+      }
 
-  <!-- 원본 wisereport CSS -->
-  <link rel="stylesheet" href="https://www.wisereport.co.kr/css/reset.css">
-  <link rel="stylesheet" href="https://www.wisereport.co.kr/css/common.css">
-  <link rel="stylesheet" href="https://www.wisereport.co.kr/css/krible.css">
-</head>
-<body>
-  <div class="content-wrap">
-    <div class="tabwrap">
-      <div class="tabs">
-        <button class="tab active" onclick="changeTab('summary')">리포트 요약</button>
-        <button class="tab" onclick="changeTab('original')">리포트 원문</button>
-      </div>
-    </div>
-
-    <!-- 요약 섹션 -->
-    <div id="originalReport" class="visible">
-      <div class="card">
-        <h2>HMM 2025년, 적자 속에서도 희망의 항로를 찾는 해운전문가의 분석</h2>
-        <p style="color: gray; margin-top: -0.5rem; margin-bottom: 2rem;">이것부터 알고 가기</p>
-        <p>HMM은 글로벌 해운 시장의 변화와 실적 부진 속에서도 내년 전망을 분석하는 중요한 데이터를 제공하고 있어요. 2분기 실적 쇼크와 비용 증가, 그리고 하반기 시장 예상이 핵심 포인트입니다.</p>
-      </div>
-
-      <div class="card">
-        <h2>중요한 부분</h2>
-        <ul style="list-style-type: none;">
-          <li><strong>① 2분기 실적 쇼크와 그 이유</strong><br>HMM은 2분기 당기순이익이 크게 하락했고, 비용과 운임 하락이 주요 원인입니다. 컨테이너 운임이 큰 폭으로 떨어졌으며, 비용이 예상보다 늘어난 것에 영향을 받았어요.</li>
-          <li><strong>② 하반기 전망과 의의</strong><br>향후 운임이 약보합 전망이지만, 업황 부진에도 연내 자사주 매입 계획으로 주가 하락폭 제한이 예상돼요. 앞으로 시장 변동성과 실적 전망을 함께 고려해야 합니다.</li>
-          <li><strong>③ 기업의 전략과 시장 상황</strong><br>HMM은 2030년까지 선복 확대와 유연한 전략 운용을 계획하고 있으며, 선박 규제와 시장 변동에 적응하기 위한 다양한 방안을 검토 중입니다.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>쉽게 말해서</h2>
-        <div class="highlight">
-          <strong>① 이 리포트가 말하려고 하는 건</strong><br>
-          HMM은 최근 실적이 부진했지만, 앞으로 시장에서 회복할 가능성도 검토하며, 주가 하락폭은 제한적일 것이라는 분석을 전합니다.
-        </div>
-        <div class="highlight">
-          <strong>② 배울 수 있는 것은</strong><br>
-          시장 변동성과 비용 증가가 실적에 어떻게 영향을 주는지 이해할 수 있으며, 기업이 대처하는 전략이 시장 환경에 어떻게 연결되는지 알 수 있어요.
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>그럼 무엇을 해야 할까</h2>
-        <ul style="list-style-type: none;">
-          <li><strong>① 이 내용을 더 심도 있게 알고 싶다면</strong><br>해운업의 비용 구조, 운임 지수 및 글로벌 시장 변화와 관련된 책이나 자료를 찾아보고, 해운업 전략과 시장 전망을 공부하세요.</li>
-          <li><strong>② 이 내용을 바탕으로 이익을 얻으려면</strong><br>HMM의 미래 전략과 시장 분석에 주목하고, 실적 변동성에 대비하여 분산투자와 시장 타이밍을 고려하는 것이 좋습니다.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 원문 섹션 -->
-    <div id="fullReport">
-<html><head>
-  <link rel="stylesheet" href="/css/retamin.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- </head>
- <body marginwidth="0" marginheight="0">
-  <p></p>
-  <h2 highlighter="[]" hl_no="0" style="user-select: auto !important;">HMM </h2>
-  <br style="user-select: auto !important;">
-  <h2 highlighter="[]" hl_no="1" style="user-select: auto !important;">(011200) </h2>
-  <h3 highlighter="[]" hl_no="2" style="user-select: auto !important;"> </h3>
-  <h3 highlighter="[]" hl_no="2" style="user-select: auto !important;"><br></h3>
-  <h3 highlighter="[]" hl_no="2" style="user-select: auto !important;">시계 제로 불확실성의 시대 </h3>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="5" style="user-select: auto !important;">
-   ◼ 투자의견 시장수익률 유지하나, 목표주가는 23,000원으로 11.5% 하향 
-  </div>
-  <div highlighter="[]" hl_no="3" style="user-select: auto !important;">
-   ◼ 2분기 실적 쇼크. 운임은 예상을 하회하고 비용은 크게 증가한 영향 
-  </div>
-  <div highlighter="[]" hl_no="4" style="user-select: auto !important;">
-   ◼ 하반기 컨테이너 업황 및 실적 부진 전망하나, 주가 하락폭은 제한 예상 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="6" style="user-select: auto !important;">투자의견 시장수익률 유지, 목표주가 23,000원으로 11.5% 하향 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="8" style="user-select: auto !important;">
-   HMM의 목표주가 하향은 ① 25년 2분기 실적이 당사 및 시장의 기대치를 크게 하회한 부분을 반영해 25년 영업이익 추정치 24.4% 하향 ② 컨테이너업황 부진 및 추정 실적 가시성 및 신뢰도 하락으로 Multiple 하향(0.9x→0.8x)의 결과 
-  </div>
-  <div highlighter="[]" hl_no="8" style="user-select: auto !important;">
-   <br>
-  </div>
-  <div highlighter="[]" hl_no="8" style="user-select: auto !important;">
-   <br>
-  </div>
-  <div highlighter="[]" hl_no="8" style="user-select: auto !important;">
-   HMM의 25년 2분기 영업이익은 2,332억원으로 당사 추정 및 시장 기대치를 약37% 하회. 실적 부진의 주요 원인은 ① 항화물비, 연료비 등 비용이 예상보다 크게 증가 ② 동사의 컨테이너 운임이 시장운임과 비교 시 전분기 대비 큰 하락폭을 나타나면서 수익성이 악화된 영향으로 판단
-  </div>
-  <div highlighter="[]" hl_no="8" style="user-select: auto !important;">
-   <br>
-  </div>
-  <div highlighter="[]" hl_no="8" style="user-select: auto !important;">
-   <br>
-  </div>
-  <div highlighter="[]" hl_no="8" style="user-select: auto !important;"> 
-  </div>
-  <div highlighter="[]" hl_no="7" style="user-select: auto !important;">
-   5월말~6월에 상승한 운임이 2분기 실적에 기여한 부분도 적었던 것으로 추정하며, 미주항로의 컨테이너 수송량 감소(-2.8% yoy), 유럽항로의 컨테이너 수송량 증가(+20.4% yoy)도 영향을 준 것으로 추정. 유럽항로가 미서안 대비 1항차당 운항 일수가 2.5배 이상 긴 점도 비용 증가에 영향을 주었을 것으로 분석 
-  </div>
-  <div highlighter="[]" hl_no="7" style="user-select: auto !important;">
-   <br>
-  </div>
-  <div highlighter="[]" hl_no="7" style="user-select: auto !important;">
-   <br>
-  </div>
-  <div highlighter="[]" hl_no="7" style="user-select: auto !important;">
-   연내 2조원 규모의 자사주 매입을 진행할 예정인만큼 업황 및 실적 전망 부진에도 불구하고 주가의 하락 폭은 제한될 것으로 예상 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="9" style="user-select: auto !important;">25년 2분기 매출액 2.6조원, 영업이익 2,332억원으로 어닝 쇼크 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="10" style="user-select: auto !important;">
-   주요 사업부문별 실적은 [컨테이너] 매출액 2조 1,701억원(−(증감은 yoy) 3.7%), 영업이익 1,876억원(−69.1%), [벌크] 매출액 3,968억원(+13.9%), 영업이익 332억원(−2.6%)을 시현. HMM의 2분기 컨테이너 공급량은 1,430천TEU(+10.3%), 수송량은 980천TEU(+3.3%)를 기록하였으며, 컨테이너 평균운임은 $1,195/TEU(−22.1% yoy)을 기록 
-  </div>
-  <br style="user-select: auto !important;">&nbsp;
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_0.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_1.jpg" data-filename="image.png" style="width: 362.4px;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="11" style="user-select: auto !important;">주요 Q&amp;A </h4>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="12" style="user-select: auto !important;">Q1. Service Contract Rate 인상 유지 여부 및 재협상 동향 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="13" style="user-select: auto !important;">
-   A. 25년초 체결된 SC Rate는 전년 대비 15~20% 인상. 스팟운임 하락 국면에도 23년과 같은 SC Rate 하향 요구는 일반화되지 않은 것으로 파악. GRI 및 성수기 할증(PSS) 부과는 5월 중순~6월 중순에 걸쳐 선별 적용되었으나, SC Rate 인하는 미확인. 관세 불확실성 지속에 선사 측 공급 대응은 단계적 조정, 화주 측은 정책 변수 모니터링 기조. 장기 거래관계의 연속성 훼손 가능성은 낮은 수준으로 평가 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="14" style="user-select: auto !important;">Q2. 항만하역비 인상여부 및 매출원가 증가 요인 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="15" style="user-select: auto !important;">
-   A. 2Q 비용은 전 항목 증가했는데, 항화물비가 주요 요인. 컨테이너 물동량 증가, 벌크 선박 입항·항차 증가, 개별 벤더 단가 변동, 환율 상승, 화물 믹스 변화, 수출입 불균형에 따른 컨테이너 포지셔닝 비용 등이 복합 작용한 결과. 하역비는 협상 구조 특성상 특정 시점 일괄 인상으로 보기 어려운 것으로 판단 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="16" style="user-select: auto !important;">Q3. 2분기 월별 흐름 및 3분기 운임 전망 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="17" style="user-select: auto !important;">
-   A. 3Q 운임 기본 시나리오는 약보합. 관세 변수는 지속으로 상수화되었으며, 2분기 중 일부 조기선적 효과가 3분기 수요를 일부 선반영했을 가능성 존재. 월별로는 4월 부진(관세 불확실성), 5월 점진 회복(GRI·선박 재배치), 6월 유럽 중심 물량 회복 흐름이나, 실적 인식의 시차로 6월 개선분 일부가 3분기로 이월. 노선별로 유럽은 항만 혼잡·스케줄 교란 감안 시 상대적 견조, 미주는 변동성 확대를 예상 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="18" style="user-select: auto !important;">Q4. 선복 확충(발주·용선) 계획 및 중장기 선대 전략 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="19" style="user-select: auto !important;">
-   A. 발주 여부·스펙·타이밍은 아직 미확정. 2030년 선복 155만 TEU 목표 대비 추가 50~60만 TEU 확보 필요가 제시된 바 있으며, 신조·중고 매입·용선 혼합안 등 복수 시나리오 병행해 검토할 방침. 확정 공지 전 단계로 세부사항 공개 어려우나, MPV·PCTC·MR 등 비컨테이너 선대 확대 방향은 유지할 계획 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="20" style="user-select: auto !important;">Q5. 비용(연료·항화물비) 증가와 항로 믹스(미주 ↓, 유럽 ↑) 상관성 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="21" style="user-select: auto !important;">
-   A. 2분기 연료비 단가는 하락했으나 연료비 총액은 증가. 아직 지역·항로별 세부 브레이크다운 완료 전이지만 미주 물량 감소·유럽 물량 증가라는 항로 믹스 변화가 항화물비·연료비 증가에 기여한 듯 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="22" style="user-select: auto !important;">Q6. 벌크선 선대 확대 기조 및 하반기 용선 전략 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="23" style="user-select: auto !important;">
-   A. 전년 중 중고선 매입 중심의 드라이벌크 선대 확대가 진행된 바 있으며, 금년에도 벌크 선대 확보 필요성은 유효. 특정 거래(SK해운 관련 이슈)와 무관하게, 2030 계획에 따른 벌크 포트폴리오 확대 기조 유지. 중고선 매입 vs 용선 대체는 미정이며, 시황·가격·가용 자산 등을 고려해 유연하게 조합할 계획 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="24" style="user-select: auto !important;">Q7. 회사 평균운임과 SCFI 간 괴리 해석 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="25" style="user-select: auto !important;">
-   A. QoQ -12%로 집계된 평균운임은 CCFI QoQ -14%와 유사, SCFI QoQ -7%와는 괴리가 존재. 수에즈 우회 이후 항차 지연·스케줄 교란 등으로 지수-실적 간 시차·측정 기준 차가 확대된 것으로 추정. 이에 단일 지수에 의존한 분석보다는, 복합 지표와 내부 운임 데이터 병행해 추정하는 것을 권고 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="26" style="user-select: auto !important;">Q8. 중국산 선박 규제 관련 경쟁사 동향 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="27" style="user-select: auto !important;">
-   A. 본격적인 재배치 흐름은 아직 두드러지지 않으나 당사 얼라이언스 내 타 선사들은 중국산 선박을 타 항로로 빼는 작업 중인 것으로 파악. 다만 선박 사이즈 불일치 등의 제약으로 재배치에 일부 제약 존재. 규제 10월말 발효 예정이라 본격적으로 영향 미치는 시점은 아니지만 일시적인 공급 축소 가능성 기대 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="28" style="user-select: auto !important;">Q9. 헤드홀/백홀 적취율, 유럽 BSA 확대와 원가 영향 </h4>
-  <br style="user-select: auto !important;">
-  <div highlighter="[]" hl_no="29" style="user-select: auto !important;">
-   A. 2Q 전 항로 헤드홀:백홀 약 7:3 구도 확인. 미주 관세 변수로 4~5월 미주→유럽 선복 전환이 발생하며, 유럽 BSA 증가 &gt; 물동량 증가의 간극이 나타난 것으로 판단. 헤드홀 적취율은 견조하나, 백홀 약세와 빈 리포지셔닝 비용 등으로 원가율 상승 압력이 동반된 구조. 3Q에도 미주 변동성 연동 공급 전이가 지속될 가능성 높을 전망이며, 해당 전이의 강도에 따라 타 항로 화물 접수·원가 구조 변동성 확대 가능 
-  </div>
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="30" style="user-select: auto !important;">기업개요 </h4>&nbsp;
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_2.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_3.jpg" data-filename="image.png" style="width: 362.4px;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h3 class="">Earnings Driver</h3>&nbsp;
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_4.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_5.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_6.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_7.jpg" data-filename="image.png" style="width: 362.4px;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <h4 highlighter="[]" hl_no="31" style="user-select: auto !important;">재무제표 </h4>&nbsp;
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_8.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_9.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_10.jpg" data-filename="image.png" style="width: 362.4px;">
-  <img src="https://www.wisereport.co.kr/konannas/KRiBLE/kriblesftp/web/2025/20250814/1023781/1023781_11.jpg" data-filename="image.png" style="width: 362.4px;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <br style="user-select: auto !important;">
-  <p></p>
- 
-</body></html>
-    </div>
-
-    <div class="info" id="urlInfo"></div>
-  </div>
-
-  <script>
-    // 탭 전환
-    function changeTab(tab) {
-      document.querySelectorAll(".tab").forEach((btn) => btn.classList.remove("active"));
-      document.querySelectorAll("#originalReport, #fullReport").forEach((el) => el.classList.remove("visible"));
-
-      if (tab === "summary") {
-        document.querySelector(".tab:nth-child(1)").classList.add("active");
-        document.getElementById("originalReport").classList.add("visible");
-      } else {
-        document.querySelector(".tab:nth-child(2)").classList.add("active");
-        document.getElementById("fullReport").classList.add("visible");
+      .card img {
+        width: 70px;
+        margin-left: 12px;
       }
     }
-  </script>
+  </style>
+</head>
+<body>
+
+  <h1># 대신증권</h1>
+
+  <div class="card">
+    <div class="card-text">
+      <small>리포트</small>
+      <h2> <a href="https://aj-114.github.io/daishin/bullet1.html" style="text-decoration: none; color: inherit;"> 인터플렉스, 2Q 실적 급감 </a> </h2>
+      <p>
+        삼성 폴더블폰에서 S펜이 빠지면서 디지타이저 매출이 크게 줄었어요. 그 영향으로 2분기 실적이 예상보다 부진했고, 목표주가도 낮아진 상황이에요.
+      </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1750055129957-6e757ce881dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE3NjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTU1NjE5MTd8&ixlib=rb-4.1.0&q=80&w=1080" alt="Stylus">
+  </div>
+
+  <div class="card">
+    <div class="card-text">
+      <small>리포트</small>
+      <h2> <a href="https://aj-114.github.io/daishin/bullet2.html" style="text-decoration: none; color: inherit;">SK스퀘어, 할인율 축소와 실적 개선 </a> </h2>
+      <p>
+        SK스퀘어는 하이닉스 지분 효과와 포트폴리오 개선으로 실적이 좋아졌어요. 주주환원 정책도 강화되면서 할인율이 점점 줄고 있고, 목표주가도 크게 올랐습니다.
+      </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1584371621040-e6110fb92238?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE3NjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTU1NjE5NDl8&ixlib=rb-4.1.0&q=80&w=1080" alt="에너지 아이콘">
+  </div>
+
+  <div class="card">
+    <div class="card-text">
+      <small>리포트</small>
+      <h2> <a href="https://aj-114.github.io/daishin/bullet3.html" style="text-decoration: none; color: inherit;">에스엘, 하반기에도 관심 필요한 이유</a> </h2>
+      <p>
+        현대차 SUV 신차와 미국 HEV 생산 기대 덕분에 에스엘은 여전히 주목할 만해요. 관세 부담은 줄고, 신사업 모멘텀까지 더해져 하반기에도 성장 기회가 이어질 전망입니다.
+      </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1613075924608-7401454f8a33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE3NjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTU1NjIwMTR8&ixlib=rb-4.1.0&q=80&w=1080" alt="편의점 이미지">
+  </div>
+
+  <div class="card">
+    <div class="card-text">
+      <small>리포트</small>
+      <h2> <a href="https://aj-114.github.io/daishin/bullet4.html" style="text-decoration: none; color: inherit;">한국타이어, 자회사 증자 참여 전망 </a> </h2> 
+      <p>
+        한국타이어는 한온시스템의 유상증자에 참여할 가능성이 커요. 본업인 타이어는 여전히 탄탄하지만, 한온시스템 추가 투자는 주주가치 측면에선 아쉬움이 남는 결정으로 보여요.
+      </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1693439876265-a1ad8745fe5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE3NjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTU1NjIwNDB8&ixlib=rb-4.1.0&q=80&w=1080" alt="화장품 아이콘">
+  </div>
+
+  <div class="card">
+    <div class="card-text">
+      <small>리포트</small>
+      <h2> <a href="https://aj-114.github.io/daishin/bullet5.html" style="text-decoration: none; color: inherit;">한온시스템, 실적은 선방했지만 자금조달 쇼크</a> </h2>
+      <p>
+        2분기 실적은 예상보다 좋았지만, 이른 자금조달 발표로 주가가 크게 흔들렸어요. 고객사 회복과 비용 절감 효과는 긍정적이지만, 여전히 밸류 부담이 크고 단기 변동성에 대비가 필요합니다.
+      </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1592919346937-c9807c7a3333?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE3NjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NTU1NjIwNzN8&ixlib=rb-4.1.0&q=80&w=1080" alt="건설 아이콘">
+  </div>
+
+
+
+  
+
 </body>
 </html>
-
